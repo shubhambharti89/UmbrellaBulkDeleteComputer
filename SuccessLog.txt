@@ -1,0 +1,15 @@
+abc : Device Name not found on Umbrella Console 
+def : Device Name not found on Umbrella Console 
+ghi : Computer has been successfully deleted 
+jkl : Computer has been successfully deleted 
+mno : Computer has been successfully deleted 
+pqr : Computer has been successfully deleted 
+stu : Computer has been successfully deleted 
+vwx : Device Name not found on Umbrella Console 
+yz1 : Device Name not found on Umbrella Console 
+234 : Device Name not found on Umbrella Console 
+567 : Device Name not found on Umbrella Console 
+890 : Device Name not found on Umbrella Console 
+************************************************************
+Task Completed : Total number of devices worked upon : 12.
+************************************************************
