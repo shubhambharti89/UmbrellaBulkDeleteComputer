@@ -9,7 +9,7 @@ Umbrella Management API does not provide BULK option by default and also has a r
 
 When a rate limit is reached, the API returns the Too Many Requests error with the HTTP response code 429, for the remainder of the time-period. 
 
-The script has been written to not hit this rate limit as we are using a timer of 6 seconds per API requests. There couple of changes that needs to be done on the script before one starts using it. Provide the following two details to the script :
+The script has been written to not hit this rate limit as we are using a timer of 6 seconds per API requests. There couple of changes that needs to be done on the script **main.py** before one starts using it. Provide the following two details to the script :
 
 - Organization ID 
 - Management API Key
@@ -18,7 +18,7 @@ The script has been written to not hit this rate limit as we are using a timer o
 ![Code Changes](imgs/codestaticvalue.png)
 
 
-This workflow requires CSV File as an input - Sample CSV file is provided in this repository itself. Fill the CSV file with required roaming computer names and run "main.py" script present in respective folder. 
+This workflow requires CSV File as an input - Sample CSV file is provided in this repository itself. Fill the CSV file with required roaming computer names and run **main.py** script present in respective folder. 
 
 ![Input CSV](imgs/inputcsv.png)
 
