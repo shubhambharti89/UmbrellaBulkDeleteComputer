@@ -11,13 +11,20 @@ When a rate limit is reached, the API returns the Too Many Requests error with t
 
 The script has been written to not hit this rate limit as we are using a timer of 6 seconds per API requests. 
 
-This workflow requires CSV File as an input - Sample CSV file is provided in this repository itself. Fill the CSV file with required input and run any of the script present in respective folder. 
+This workflow requires CSV File as an input - Sample CSV file is provided in this repository itself. Fill the CSV file with required roaming computer names and run "main.py" script present in respective folder. 
 
+![Input CSV](imgs/inputcsv.png)
 
-
+![Input Parmeters](imgs/terminalinput.png)
 
 Once the required details are provided, the output is seen as below(This is just an example):
 
+![Terminal Output](imgs/terminaloutput.png)
+
+This script also provides you with a log file in the same folder with success and failure responses. The sample Success and Error logs are provided in the same repository
+
+- ErrorLog.txt
+- SuccessLog.txt
 
 
-This script also provides you with a log file in the same folder with success and failure responses.
+
