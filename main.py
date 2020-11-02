@@ -20,8 +20,8 @@ def csvtojson(csvFilePath):
 print("Please make sure that the device name present in the sheet is validated. \nIt should not have any random alphabets present as name because the API filters the name with \" contains \" rather than \" equals \"." )
 csvFilePath = input("Please enter the CSV Filepath (For eg. : path/to/file/objects.csv) :")
 
-org_id = "2659340"
-mgmt_api_key = "1d116a2b547147d8b7b9fba442f3a174"
+org_id = <"ORG ID">
+mgmt_api_key = <"Management API Key">
 
 mgmt_api_secret = input("Please provide the Management API Secret : ")
 
