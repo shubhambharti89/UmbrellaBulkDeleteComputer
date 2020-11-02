@@ -63,7 +63,7 @@ for name in names:
         time.sleep(12)
     else :
         print(str(count)+ " : " + name[0] + " : Device Name not found on Umbrella Console")
-        log.write(name[0] + ": Device Name not found on Umbrella Console \n")
+        log.write(name[0] + " : Device Name not found on Umbrella Console \n")
         time.sleep(6)
 
 log.write("************************************************************\n")
