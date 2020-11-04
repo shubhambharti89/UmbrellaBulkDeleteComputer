@@ -7,9 +7,49 @@ Umbrella Management API does not provide BULK option by default and also has a r
 - 14 requests per minute
 - 350 requests per 30 minutes
 
-When a rate limit is reached, the API returns the Too Many Requests error with the HTTP response code 429, for the remainder of the time-period. 
+When a rate limit is reached, the API returns the Too Many Requests error with the HTTP response code 429, for the remainder of the time-period.  The script has been written to not hit this rate limit as we are using a timer of 6 seconds per API requests. 
 
-The script has been written to not hit this rate limit as we are using a timer of 6 seconds per API requests. There couple of changes that needs to be done on the script **main.py** before one starts using it. Provide the following two details to the script :
+For more details about Management API : https://docs.umbrella.com/umbrella-api/docs/management-api-documentation
+
+## Installation
+
+Installing the script is pretty straight forward . You can just copy and paste them into you python environment but a good practice is to run them into a python virtual environment.
+
+### Install a Python virtual environment
+
+	For Linux/Mac 
+
+	python3 -m venv venv
+	source bin activate
+
+	For Windows 
+	
+	We assume that you already have installed git-bash.  If so open a git-bash console and :
+
+	python -m venv venv
+	source /venv/Scripts/activate
+
+### git clone the scripts
+
+	git clone https://github.com/shubhambharti89/UmbrellaBulkDeleteComputer.git
+	cd UmbrellaBulkDeleteComputer/
+	
+### install needed python modules
+
+These scripts use the following python modules
+
+- requests
+- json
+- csv
+- time
+
+You can install these modules with the following :
+
+	pip install -r requirements.txt
+	
+## Running the scripts
+
+First you need to make couple of changes that needs to be done on the script **main.py** before using it. Provide the following two details to the script :
 
 - Organization ID 
 - Management API Key
