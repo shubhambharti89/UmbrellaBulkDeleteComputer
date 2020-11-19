@@ -5,7 +5,11 @@ import time
 import csv
 from ratelimiter import RateLimiter
 
-rate_limiter = RateLimiter(max_calls=350, period=1800)
+def limited(until):
+    duration = int(round(until - time.time()))
+    print('Rate limited, sleeping for {:d} seconds'.format(duration))
+
+rate_limiter = RateLimiter(max_calls=350, period=1800, callback=limited)
 
 # Function to convert a CSV to JSON
 def csvtojson(csvFilePath):
@@ -40,7 +44,7 @@ for name in names:
         count+=1
         delete_computer_url = 'https://management.api.umbrella.com/v1/organizations/'+org_id+'/roamingcomputers/'+name
 
-        response = requests.request("DELETE", delete_computer_url, headers=header, auth=HTTPBasicAuth(mgmt_api_key, mgmt_api_secret))
+        response = requests.request("GET", delete_computer_url, headers=header, auth=HTTPBasicAuth(mgmt_api_key, mgmt_api_secret))
 
         if response.status_code == 204 or 200 :
             print(str(count) + " : " +name + " : Computer has been successfully deleted")
