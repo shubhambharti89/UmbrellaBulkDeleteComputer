@@ -44,7 +44,7 @@ for name in names:
         count+=1
         delete_computer_url = 'https://management.api.umbrella.com/v1/organizations/'+org_id+'/roamingcomputers/'+name
 
-        response = requests.request("GET", delete_computer_url, headers=header, auth=HTTPBasicAuth(mgmt_api_key, mgmt_api_secret))
+        response = requests.request("DELETE", delete_computer_url, headers=header, auth=HTTPBasicAuth(mgmt_api_key, mgmt_api_secret))
 
         if response.status_code == 204 or 200 :
             print(str(count) + " : " +name + " : Computer has been successfully deleted")
