@@ -3,6 +3,7 @@ import requests
 from requests.auth import HTTPBasicAuth
 import time
 import csv
+from ratelimiter import RateLimiter
 
 # Function to convert a CSV to JSON
 def csvtojson(csvFilePath):
@@ -16,6 +17,12 @@ def csvtojson(csvFilePath):
             computername.append(rows)
 
     return computername
+
+def limited(until):
+    duration = int(round(until - time.time()))
+    print('Rate limited, sleeping for {:d} seconds'.format(duration))
+
+rate_limiter = RateLimiter(max_calls=350, period=3600, callback=limited)
 
 print("Please make sure that the device name present in the sheet is validated. \nIt should not have any random alphabets present as name because the API filters the name with \" contains \" rather than \" equals \"." )
 csvFilePath = input("Please enter the CSV Filepath (For eg. : path/to/file/objects.csv) :")
@@ -33,38 +40,37 @@ logfile = "log_"+ str(time.perf_counter_ns()) + ".txt"
 log = open(logfile,"w+")
 
 for name in names:
-    count+=1
-    mgmt_api_url = 'https://management.api.umbrella.com/v1/organizations/'+org_id+'/roamingcomputers?name='+name[0]
+    with rate_limiter:
+        count+=1
+        mgmt_api_url = 'https://management.api.umbrella.com/v1/organizations/'+org_id+'/roamingcomputers?name='+name
 
-    r = requests.request("GET",mgmt_api_url, headers=header, auth=HTTPBasicAuth(mgmt_api_key, mgmt_api_secret))
+        r = requests.request("GET",mgmt_api_url, headers=header, auth=HTTPBasicAuth(mgmt_api_key, mgmt_api_secret))
 
-    if r.status_code != 200 :
-        log.write("Error with the request : " + r.text)
-        break
-    
-    body = json.loads(r.content)
-  
-    if body != []:
-        device_id = body[0]['deviceId']
-    
-        delete_computer_url = 'https://management.api.umbrella.com/v1/organizations/'+org_id+'/roamingcomputers/'+device_id
-
-        response = requests.request("DELETE", delete_computer_url, headers=header, auth=HTTPBasicAuth(mgmt_api_key, mgmt_api_secret))
-
-
-        if response.status_code == 204 or 200 :
-            print(str(count) + " : " +name[0] + " : Computer has been successfully deleted")
-            log.write(name[0] + " : Computer has been successfully deleted \n")
+        if r.status_code != 200 :
+            log.write("Error with the request : " + r.text)
+            break
         
+        body = json.loads(r.content)
+    
+        if body != []:
+            device_id = body[0]['deviceId']
+        
+            delete_computer_url = 'https://management.api.umbrella.com/v1/organizations/'+org_id+'/roamingcomputers/'+device_id
+
+            response = requests.request("DELETE", delete_computer_url, headers=header, auth=HTTPBasicAuth(mgmt_api_key, mgmt_api_secret))
+
+
+            if response.status_code == 204 or 200 :
+                print(str(count) + " : " +name + " : Computer has been successfully deleted")
+                log.write(name + " : Computer has been successfully deleted \n")
+            
+            else :
+                print(str(count)+ " : " + name + " : Issue found with this computer. Please check the logs for more details")
+                log.write(name + " : " +response.text + "\n")  
+            
         else :
-            print(str(count)+ " : " + name[0] + " : Issue found with this computer. Please check the logs for more details")
-            log.write(name[0] + " : " +response.text + "\n")  
-        
-        time.sleep(12)
-    else :
-        print(str(count)+ " : " + name[0] + " : Device Name not found on Umbrella Console")
-        log.write(name[0] + " : Device Name not found on Umbrella Console \n")
-        time.sleep(6)
+            print(str(count)+ " : " + name + " : Device Name not found on Umbrella Console")
+            log.write(name + " : Device Name not found on Umbrella Console \n")
 
 log.write("************************************************************\n")
 log.write("Task Completed : Total number of devices worked upon : "+ str(count) + ".\n")
