@@ -1,4 +1,4 @@
-# UmbrellaBulkDeleteComputer
+# UmbrellaDeleteComputer
 API workflow to delete set number of roaming computers provided through a CSV File. This script has been tested with Umbrella v1 Management APIs and requires Python 3 running on the end machine. 
 
 Umbrella Management API does not provide BULK option by default and also has a rate limit in place as following.  
