@@ -46,7 +46,7 @@ for name in names:
 
         response = requests.request("DELETE", delete_computer_url, headers=header, auth=HTTPBasicAuth(mgmt_api_key, mgmt_api_secret))
 
-        if response.status_code == 204 or 200 :
+        if response.status_code == 204 :
             print(str(count) + " : " +name + " : Computer has been successfully deleted")
             log.write(name + " : Computer has been successfully deleted \n")
         
