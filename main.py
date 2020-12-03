@@ -14,7 +14,8 @@ def csvtojson(csvFilePath):
         csvReader = csv.reader(csvf)
 
         for rows in csvReader:
-            computername.append(rows)
+            if 8 <= len(rows[0]) <= 10 :
+                computername.append(rows)
 
     return computername
 
